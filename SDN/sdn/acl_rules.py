@@ -29,7 +29,7 @@ def drop_rule(mac: str) -> dict:
     return {
         "rule": {
             "dl_src": mac,
-            "actions": {"drop": True},
+            "actions": {"allow": False},   # Faucet has no "drop" action
         }
     }
 
@@ -39,12 +39,11 @@ def rate_limit_rule(mac: str, kbps: int = RATE_LIMIT_KBPS) -> dict:
     Allow traffic from mac but throttle it to kbps kilobits/second.
     OVS meter ID is derived from the MAC so each device gets its own meter.
     """
-    meter_id = _mac_to_meter_id(mac)
     return {
         "rule": {
             "dl_src": mac,
             "actions": {
-                "meter": {"meter_id": meter_id, "rate": kbps},
+                "meter": _meter_name(mac),   # Faucet expects the meter's name
                 "allow": True,
             },
         }
@@ -60,7 +59,7 @@ def segment_rule(src_mac: str, dst_mac: str) -> dict:
         "rule": {
             "dl_src": src_mac,
             "dl_dst": dst_mac,
-            "actions": {"drop": True},
+            "actions": {"allow": False},
         }
     }
 
@@ -78,14 +77,13 @@ def allow_rule() -> dict:
 def meter_config(mac: str, kbps: int = RATE_LIMIT_KBPS) -> dict:
     """
     Build a Faucet meter entry for mac.
-    Returns {meter_id: <meter_config_dict>} to merge into faucet.yaml meters.
+    Returns {meter_name: <meter_config_dict>} to merge into faucet.yaml meters.
     """
-    meter_id = _mac_to_meter_id(mac)
     return {
-        meter_id: {
-            "meter_id": meter_id,
+        _meter_name(mac): {
+            "meter_id": _mac_to_meter_id(mac),
             "entry": {
-                "flags": "KBPS",
+                "flags": ["KBPS"],
                 "bands": [{"type": "DROP", "rate": kbps}],
             },
         }
@@ -93,6 +91,11 @@ def meter_config(mac: str, kbps: int = RATE_LIMIT_KBPS) -> dict:
 
 
 # ── Internal helpers ───────────────────────────────────────────────────────
+
+def _meter_name(mac: str) -> str:
+    """Name of mac's meter in the faucet.yaml meters section."""
+    return f"rate_limit_{_mac_to_meter_id(mac)}"
+
 
 def _mac_to_meter_id(mac: str) -> int:
     """

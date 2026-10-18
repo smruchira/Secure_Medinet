@@ -63,19 +63,21 @@ class TestACLRules(unittest.TestCase):
     def test_drop_rule(self):
         rule = drop_rule("aa:bb:cc:dd:ee:01")
         self.assertEqual(rule["rule"]["dl_src"], "aa:bb:cc:dd:ee:01")
-        self.assertTrue(rule["rule"]["actions"]["drop"])
+        self.assertFalse(rule["rule"]["actions"]["allow"])
 
     def test_rate_limit_rule(self):
         rule = rate_limit_rule("aa:bb:cc:dd:ee:02", kbps=1024)
         self.assertEqual(rule["rule"]["dl_src"], "aa:bb:cc:dd:ee:02")
         self.assertTrue(rule["rule"]["actions"]["allow"])
-        self.assertEqual(rule["rule"]["actions"]["meter"]["rate"], 1024)
+        meter_name = rule["rule"]["actions"]["meter"]
+        meters = meter_config("aa:bb:cc:dd:ee:02", kbps=1024)
+        self.assertEqual(meters[meter_name]["entry"]["bands"][0]["rate"], 1024)
 
     def test_segment_rule(self):
         rule = segment_rule("aa:bb:cc:dd:ee:01", "aa:bb:cc:dd:ee:02")
         self.assertEqual(rule["rule"]["dl_src"], "aa:bb:cc:dd:ee:01")
         self.assertEqual(rule["rule"]["dl_dst"], "aa:bb:cc:dd:ee:02")
-        self.assertTrue(rule["rule"]["actions"]["drop"])
+        self.assertFalse(rule["rule"]["actions"]["allow"])
 
     def test_allow_rule(self):
         rule = allow_rule()
@@ -136,7 +138,7 @@ class TestFaucetManager(unittest.TestCase):
         rules = config["acls"]["iot_policy"]
         # First rule should be DROP for the quarantined mac
         self.assertEqual(rules[0]["rule"]["dl_src"], "aa:bb:cc:dd:ee:01")
-        self.assertTrue(rules[0]["rule"]["actions"]["drop"])
+        self.assertFalse(rules[0]["rule"]["actions"]["allow"])
 
     def test_rate_limit_device(self):
         self.manager.register("aa:bb:cc:dd:ee:02")
