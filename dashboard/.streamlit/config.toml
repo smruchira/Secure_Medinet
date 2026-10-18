@@ -1,0 +1,12 @@
+# Tuned for a headless Raspberry Pi 4 (Raspberry Pi OS Lite).
+[server]
+headless = true
+port = 8501
+fileWatcherType = "none"   # no source watching: saves CPU on the Pi
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"

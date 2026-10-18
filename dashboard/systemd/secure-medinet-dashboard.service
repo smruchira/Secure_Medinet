@@ -1,0 +1,21 @@
+[Unit]
+Description=Secure MediNet Dashboard (Streamlit)
+After=network.target sdn-api.service
+Wants=sdn-api.service
+
+[Service]
+Type=simple
+User=dashboard
+WorkingDirectory=/opt/secure-medinet-dashboard
+Environment=SDN_API_URL=http://127.0.0.1:5000
+Environment=SDN_REGISTRY_PATH=/opt/sdn/config/device_registry.json
+# Holds DASHBOARD_PASSWORD (written by scripts/install_pi.sh, mode 600).
+EnvironmentFile=/etc/secure-medinet-dashboard.env
+ExecStart=/opt/secure-medinet-dashboard/venv/bin/streamlit run Home.py
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -86,9 +86,11 @@ Tier 2a: AutoEncoder                                  attack/normal classifier
                                v
               SDN trigger (sdn_integration/sdn_trigger.py)
             - REST POST (default) / MQTT / raw socket
-            - sends {device_id, threat_type, confidence, timestamp}
+            - maps device_id -> MAC (config.SDN_DEVICE_MACS)
+            - sends {device_mac, threat_type, confidence, severity,
+                     device_criticality} to POST /alert
                                v
-                 smruchira/SDN controller -> quarantines device
+         smruchira/SDN gateway -> risk score -> rate-limits / quarantines
 ```
 
 ---
@@ -136,8 +138,9 @@ python3 data/synthetic_data_generator.py
 python3 train.py
 
 # 3. Simulate the real-time gateway loop (gated vs ungated latency comparison,
-#    fires SDN trigger calls -- will fail gracefully against the placeholder
-#    endpoint in config.py until you set a real one)
+#    fires SDN trigger calls against config.SDN_REST_ENDPOINT -- fails
+#    gracefully if the SDN Gateway is unreachable, and skips devices that
+#    have no MAC mapping in config.SDN_DEVICE_MACS)
 python3 inference.py
 ```
 
@@ -155,8 +158,10 @@ python3 inference.py
 4. Re-run `train.py`. Do not report the numbers currently produced by the
    synthetic demo data as project results — they exist only to prove the
    pipeline runs correctly end-to-end.
-5. Set the real values for `config.SDN_REST_ENDPOINT` (or the MQTT/socket
-   equivalents) once `smruchira/SDN`'s controller API is finalized.
+5. Map each real `device_id` to its MAC address in `config.SDN_DEVICE_MACS`
+   (or the `SDN_DEVICE_MACS` env var). The SDN Gateway enforces policy per
+   MAC, so confirmed threats on unmapped devices are not sent to it. If the
+   gateway is not at `10.0.0.1:5000`, set `SDN_REST_ENDPOINT`.
 
 ---
 

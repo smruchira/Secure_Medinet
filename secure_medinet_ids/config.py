@@ -8,6 +8,7 @@ gateway metadata pipeline (Member 1/2's dataset). Nothing else in the codebase
 needs to change if the feature list changes -- every module reads from here.
 """
 
+import json
 import os
 
 # ---------------------------------------------------------------------------
@@ -124,9 +125,25 @@ GATED_PIPELINE = True
 # SDN integration
 # ---------------------------------------------------------------------------
 SDN_TRANSPORT = "rest"   # "rest" | "mqtt" | "socket"
-SDN_REST_ENDPOINT = "http://<sdn-controller-host>:8080/api/v1/quarantine"
+# The SDN Gateway's risk-alert endpoint (SDN/sdn/alert_api.py, POST /alert).
+SDN_REST_ENDPOINT = os.environ.get("SDN_REST_ENDPOINT", "http://10.0.0.1:5000/alert")
 SDN_REST_TIMEOUT_SEC = 3
 SDN_REST_MAX_RETRIES = 3
+
+# The SDN Gateway enforces policy per MAC address, but the gateway metadata
+# identifies devices by device_id. Map each device_id to its MAC here, or set
+# SDN_DEVICE_MACS to a JSON object, e.g.
+#   export SDN_DEVICE_MACS='{"iomt_device_3": "aa:bb:cc:dd:ee:03"}'
+# A device_id that is already a MAC address is used as-is. Confirmed threats
+# on unmapped devices are NOT sent to the SDN Gateway.
+SDN_DEVICE_MACS = json.loads(os.environ.get("SDN_DEVICE_MACS", "{}"))
+
+# Inputs to the SDN risk engine (risk = 0.5*confidence + 0.3*severity
+# + 0.2*device_criticality), all in [0, 1]. The SDN selects the action
+# (allow / rate_limit / quarantine / block) from the resulting score.
+SDN_THREAT_SEVERITY = dict(ddos=0.9, mitm=0.9, spoofing=0.8, replay=0.7)
+SDN_DEFAULT_SEVERITY = 0.8          # used for "unclassified_threat"
+SDN_DEVICE_CRITICALITY = float(os.environ.get("SDN_DEVICE_CRITICALITY", "0.8"))
 
 SDN_MQTT_BROKER = "<mqtt-broker-host>"
 SDN_MQTT_PORT = 8883

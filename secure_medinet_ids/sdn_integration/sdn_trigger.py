@@ -19,9 +19,15 @@ the SDN controller repo exposes:
 
 All three share the same payload contract so swapping transport later is a
 one-line config change (config.SDN_TRANSPORT), not a rewrite.
+
+The payload follows the SDN Gateway's risk-alert contract (POST /alert in
+SDN/sdn/alert_api.py): the SDN computes a risk score from confidence,
+severity and device_criticality and selects the action itself, so a
+confirmed threat may be rate-limited rather than quarantined.
 """
 
 import os
+import re
 import sys
 import json
 import socket
@@ -31,13 +37,24 @@ import requests
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
+_MAC_RE = re.compile(r"^[0-9a-f]{2}(:[0-9a-f]{2}){5}$")
 
-def build_payload(device_id, threat_type, confidence, timestamp=None):
+
+def resolve_mac(device_id):
+    """Returns the MAC address for device_id, or None if it has no mapping."""
+    candidate = config.SDN_DEVICE_MACS.get(device_id, device_id)
+    candidate = str(candidate).strip().lower().replace("-", ":")
+    return candidate if _MAC_RE.match(candidate) else None
+
+
+def build_payload(device_mac, threat_type, confidence, device_id=None, timestamp=None):
     return {
-        "action": "quarantine",
-        "device_id": device_id,
+        "device_mac": device_mac,
         "threat_type": threat_type,
         "confidence": round(float(confidence), 4),
+        "severity": config.SDN_THREAT_SEVERITY.get(threat_type, config.SDN_DEFAULT_SEVERITY),
+        "device_criticality": config.SDN_DEVICE_CRITICALITY,
+        "device_id": device_id,
         "timestamp": timestamp or time.time(),
         "source": "secure-medinet-edge-ids",
     }
@@ -52,11 +69,19 @@ def _send_rest(payload):
                 json=payload,
                 timeout=config.SDN_REST_TIMEOUT_SEC,
             )
-            resp.raise_for_status()
-            return True, resp.status_code
         except requests.RequestException as e:
             last_err = str(e)
             time.sleep(0.5 * attempt)  # simple backoff
+            continue
+
+        if resp.ok:
+            body = resp.json()
+            return True, (f"action={body.get('selected_action')} "
+                          f"risk={body.get('risk_score')} status={body.get('status')}")
+        last_err = f"HTTP {resp.status_code}: {resp.text.strip()}"
+        if resp.status_code < 500:
+            break  # the SDN rejected the payload; retrying will not help
+        time.sleep(0.5 * attempt)
     return False, last_err
 
 
@@ -99,7 +124,14 @@ def trigger_quarantine(device_id, threat_type, confidence, timestamp=None, trans
     threat is confirmed. Returns (success: bool, detail: str).
     """
     transport = transport or config.SDN_TRANSPORT
-    payload = build_payload(device_id, threat_type, confidence, timestamp)
+    device_mac = resolve_mac(device_id)
+    if device_mac is None:
+        detail = f"no MAC address mapped for device_id '{device_id}' (see config.SDN_DEVICE_MACS)"
+        print(f"[SDN TRIGGER:{transport.upper()}] SKIPPED -> device={device_id} "
+              f"threat={threat_type} conf={confidence:.2f} detail={detail}")
+        return False, detail
+
+    payload = build_payload(device_mac, threat_type, confidence, device_id, timestamp)
 
     if transport == "rest":
         ok, detail = _send_rest(payload)
@@ -111,16 +143,16 @@ def trigger_quarantine(device_id, threat_type, confidence, timestamp=None, trans
         raise ValueError(f"Unknown SDN_TRANSPORT: {transport}")
 
     status = "CONFIRMED" if ok else "FAILED"
-    print(f"[SDN TRIGGER:{transport.upper()}] {status} -> device={device_id} "
+    print(f"[SDN TRIGGER:{transport.upper()}] {status} -> device={device_id} mac={device_mac} "
           f"threat={threat_type} conf={confidence:.2f} detail={detail}")
     return ok, detail
 
 
 if __name__ == "__main__":
-    # dry-run against a placeholder endpoint -- expected to fail gracefully
-    # since no real controller is reachable from this environment.
+    # dry-run against config.SDN_REST_ENDPOINT -- fails gracefully if the
+    # SDN Gateway is not reachable from this machine.
     ok, detail = trigger_quarantine(
-        device_id="iomt_device_3",
+        device_id="aa:bb:cc:dd:ee:03",
         threat_type="replay",
         confidence=0.91,
     )

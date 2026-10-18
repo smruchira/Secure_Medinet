@@ -1,0 +1,9 @@
+2026-10-18 23:44:30,217 INFO sdn.device_discovery: Discovery daemon started (leases=\var\lib\misc\dnsmasq.leases, interval=5s)
+2026-10-18 23:44:30,219 INFO __main__: SDN Alert API starting on 0.0.0.0:5000
+2026-10-18 23:44:31,345 INFO werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.7.74.64:5000
+2026-10-18 23:44:31,351 INFO werkzeug: [33mPress CTRL+C to quit[0m
+2026-10-18 23:44:46,063 INFO werkzeug: 127.0.0.1 - - [18/Oct/2026 23:44:46] "GET /alert/status HTTP/1.1" 200 -
+2026-10-18 23:45:10,955 INFO werkzeug: 127.0.0.1 - - [18/Oct/2026 23:45:10] "GET /alert/status HTTP/1.1" 200 -
