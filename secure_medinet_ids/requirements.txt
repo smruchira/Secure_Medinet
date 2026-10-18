@@ -1,0 +1,17 @@
+# Core
+numpy
+pandas
+scikit-learn
+joblib
+
+# Tier 2 models (AutoEncoder, LSTM)
+torch
+
+# SDN trigger (REST transport, the recommended default)
+requests
+
+# Optional: only needed if config.SDN_TRANSPORT = "mqtt"
+# paho-mqtt
+
+# Optional: only needed if you add SMOTE-based oversampling for Tier 1/2a
+# imbalanced-learn

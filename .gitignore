@@ -1,0 +1,24 @@
+# Keep embedded component Git histories local; this repository tracks their files.
+**/.git
+
+# Python and local tooling artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local credentials and environment configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime output may contain patient or device identifiers
+**/full_log.jsonl
+**/cloud_log.jsonl
+**/detection_results.jsonl
+**/watchdog_alerts.jsonl
