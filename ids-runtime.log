@@ -1,0 +1,217 @@
+Live replay: one window every 1.0s | loop=True | Ctrl+C to stop
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.708  p95= 16.256  n=30
+tier2a_autoencoder   mean=  0.719  p95=  0.980  n=25
+tier2b_lstm          mean=  1.287  p95=  1.509  n=25
+fusion               mean=  0.220  p95=  0.301  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=mitm conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_2 threat=mitm conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_2' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_2 threat=mitm conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_2' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_8 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_8' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_4 threat=mitm conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_4' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+
+Processed 30 windows | gated=True | confirmed threats: 7
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.009  p95= 17.742  n=30
+tier2a_autoencoder   mean=  0.633  p95=  0.870  n=28
+tier2b_lstm          mean=  1.223  p95=  1.745  n=28
+fusion               mean=  0.261  p95=  0.375  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.767  p95= 16.582  n=30
+tier2a_autoencoder   mean=  0.616  p95=  0.697  n=27
+tier2b_lstm          mean=  1.174  p95=  1.401  n=27
+fusion               mean=  0.249  p95=  0.371  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=mitm conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=replay conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_2 threat=replay conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_2' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_7 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_7' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=mitm conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_7 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_7' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+
+Processed 30 windows | gated=True | confirmed threats: 8
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.905  p95= 16.485  n=30
+tier2a_autoencoder   mean=  0.628  p95=  0.761  n=24
+tier2b_lstm          mean=  1.259  p95=  1.631  n=24
+fusion               mean=  0.229  p95=  0.353  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=mitm conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=mitm conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=mitm conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_7 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_7' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=mitm conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='mitm' ground_truth='mitm' [OK])
+
+Processed 30 windows | gated=True | confirmed threats: 7
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.701  p95= 16.310  n=30
+tier2a_autoencoder   mean=  0.640  p95=  0.908  n=24
+tier2b_lstm          mean=  1.163  p95=  1.371  n=24
+fusion               mean=  0.211  p95=  0.307  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.810  p95= 16.542  n=30
+tier2a_autoencoder   mean=  0.620  p95=  0.848  n=28
+tier2b_lstm          mean=  1.142  p95=  1.383  n=28
+fusion               mean=  0.243  p95=  0.304  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_4 threat=ddos conf=0.93 detail=no MAC address mapped for device_id 'iomt_device_4' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='ddos' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_7 threat=ddos conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_7' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='ddos' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=ddos conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=ddos conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_1 threat=ddos conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_1' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=ddos conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='ddos' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_2 threat=ddos conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_2' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='ddos' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=ddos conf=0.92 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='ddos' ground_truth='ddos' [OK])
+
+Processed 30 windows | gated=True | confirmed threats: 8
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.142  p95= 17.659  n=30
+tier2a_autoencoder   mean=  0.629  p95=  0.775  n=29
+tier2b_lstm          mean=  1.354  p95=  1.992  n=29
+fusion               mean=  0.289  p95=  0.423  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=spoofing conf=0.91 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='replay' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_8 threat=replay conf=0.94 detail=no MAC address mapped for device_id 'iomt_device_8' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=replay conf=0.75 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='normal' [mismatch])
+
+Processed 30 windows | gated=True | confirmed threats: 3
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.016  p95= 17.103  n=30
+tier2a_autoencoder   mean=  0.619  p95=  0.777  n=22
+tier2b_lstm          mean=  1.251  p95=  1.542  n=22
+fusion               mean=  0.210  p95=  0.348  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.250  p95= 19.235  n=30
+tier2a_autoencoder   mean=  0.658  p95=  0.936  n=17
+tier2b_lstm          mean=  1.267  p95=  1.754  n=17
+fusion               mean=  0.178  p95=  0.411  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.794  p95= 16.221  n=30
+fusion               mean=  0.138  p95=  0.295  n=30
+tier2a_autoencoder   mean=  0.624  p95=  0.784  n=14
+tier2b_lstm          mean=  1.183  p95=  1.627  n=14
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.553  p95= 15.935  n=30
+tier2a_autoencoder   mean=  0.624  p95=  0.902  n=19
+tier2b_lstm          mean=  1.153  p95=  1.425  n=19
+fusion               mean=  0.173  p95=  0.312  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.709  p95= 16.408  n=30
+tier2a_autoencoder   mean=  0.653  p95=  1.072  n=25
+tier2b_lstm          mean=  1.270  p95=  1.902  n=25
+fusion               mean=  0.244  p95=  0.367  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.736  p95= 16.266  n=30
+tier2a_autoencoder   mean=  0.594  p95=  0.664  n=23
+tier2b_lstm          mean=  1.224  p95=  1.556  n=23
+fusion               mean=  0.217  p95=  0.353  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=spoofing conf=0.94 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='spoofing' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_3 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_3' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='spoofing' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='spoofing' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_7 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_7' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_5 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_5' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='normal' [mismatch])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_4 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_4' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='spoofing' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_4 threat=spoofing conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_4' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='spoofing' ground_truth='spoofing' [OK])
+
+Processed 30 windows | gated=True | confirmed threats: 8
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.179  p95= 17.106  n=30
+fusion               mean=  0.169  p95=  0.347  n=30
+tier2a_autoencoder   mean=  0.692  p95=  0.981  n=17
+tier2b_lstm          mean=  1.372  p95=  1.860  n=17
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 16.127  p95= 17.182  n=30
+tier2a_autoencoder   mean=  0.687  p95=  1.025  n=26
+tier2b_lstm          mean=  1.284  p95=  1.659  n=26
+fusion               mean=  0.256  p95=  0.377  n=30
+
+Processed 30 windows | gated=True | confirmed threats: 0
+
+--- Latency summary (ms) ---
+tier1_isolation_forest mean= 15.631  p95= 16.089  n=30
+tier2a_autoencoder   mean=  0.606  p95=  0.760  n=14
+tier2b_lstm          mean=  1.186  p95=  1.605  n=14
+fusion               mean=  0.136  p95=  0.331  n=30
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_8 threat=replay conf=0.86 detail=no MAC address mapped for device_id 'iomt_device_8' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_4 threat=replay conf=0.88 detail=no MAC address mapped for device_id 'iomt_device_4' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])
+[SDN TRIGGER:REST] SKIPPED -> device=iomt_device_6 threat=replay conf=0.95 detail=no MAC address mapped for device_id 'iomt_device_6' (see config.SDN_DEVICE_MACS)
+    (demo eval only: predicted='replay' ground_truth='replay' [OK])

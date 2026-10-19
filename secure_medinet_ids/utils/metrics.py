@@ -49,8 +49,17 @@ class LatencyTimer:
 
 
 def summarize_latency(store: dict):
+    """Prints the per-stage summary and returns it as
+    {stage: {mean, p95, n}} so callers can log it."""
     print("\n--- Latency summary (ms) ---")
+    summary = {}
     for stage, samples in store.items():
         arr = np.array(samples)
+        summary[stage] = {
+            "mean": round(float(arr.mean()), 4),
+            "p95": round(float(np.percentile(arr, 95)), 4),
+            "n": int(len(arr)),
+        }
         print(f"{stage:20s} mean={arr.mean():7.3f}  p95={np.percentile(arr, 95):7.3f}  "
               f"n={len(arr)}")
+    return summary

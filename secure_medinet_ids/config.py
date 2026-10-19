@@ -20,6 +20,25 @@ MODEL_DIR = os.path.join(BASE_DIR, "saved_models")
 
 RAW_DATA_PATH = os.path.join(DATA_DIR, "gateway_metadata.csv")
 
+# Runtime logs, read by the Secure MediNet dashboard. Writing them is pure
+# logging -- it never affects a detection decision (see utils/event_log.py).
+LOG_DIR = os.environ.get("IDS_LOG_DIR", os.path.join(BASE_DIR, "logs"))
+EVENTS_LOG_PATH = os.environ.get(
+    "IDS_EVENTS_LOG", os.path.join(LOG_DIR, "ids_events.jsonl")
+)
+RUNS_LOG_PATH = os.environ.get(
+    "IDS_RUNS_LOG", os.path.join(LOG_DIR, "ids_runs.jsonl")
+)
+MODEL_REPORT_PATH = os.environ.get(
+    "IDS_MODEL_REPORT", os.path.join(LOG_DIR, "ids_model_report.json")
+)
+
+# Live replay (python3 inference.py --live): streams windows one at a time so
+# the dashboard shows detections arriving. Does not change the default run.
+LIVE_WINDOW_DELAY_SEC = float(os.environ.get("IDS_LIVE_DELAY_SEC", "1.0"))
+LIVE_PASS_WINDOWS = int(os.environ.get("IDS_LIVE_PASS_WINDOWS", "30"))
+LIVE_LOOP = os.environ.get("IDS_LIVE_LOOP", "1").lower() not in {"0", "false", "no"}
+
 # ---------------------------------------------------------------------------
 # Feature schema
 # ---------------------------------------------------------------------------

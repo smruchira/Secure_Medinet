@@ -20,7 +20,7 @@ apt-get install -y -qq python3-venv
 id dashboard &>/dev/null || useradd --system --no-create-home --shell /usr/sbin/nologin dashboard
 
 mkdir -p "$APP_DIR"
-cp -r "$SRC_DIR"/{Home.py,settings.py,ui.py,sources,pages,.streamlit,requirements.txt} "$APP_DIR"/
+cp -r "$SRC_DIR"/{Home.py,settings.py,ui.py,theme.py,charts.py,sources,pages,.streamlit,requirements.txt} "$APP_DIR"/
 python3 -m venv "$APP_DIR/venv"
 # The wheels are large (pyarrow, pandas); tolerate a slow or flaky uplink.
 "$APP_DIR/venv/bin/pip" install --timeout 120 --retries 10 --prefer-binary \

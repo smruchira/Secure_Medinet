@@ -10,3 +10,13 @@ gatherUsageStats = false
 
 [client]
 toolbarMode = "viewer"
+
+# Dark by default: this is read on a projector / wall display during demos.
+# Values are the dark steps from dashboard/theme.py.
+[theme]
+base = "dark"
+primaryColor = "#3987e5"
+backgroundColor = "#0d0d0d"
+secondaryBackgroundColor = "#1a1a19"
+textColor = "#f0efec"
+font = "sans serif"

@@ -1,0 +1,26 @@
+[Unit]
+Description=Secure MediNet Edge IDS (live replay)
+After=network.target sdn-api.service
+Wants=sdn-api.service
+
+[Service]
+Type=simple
+# Runs as the user that owns the IDS folder, so that user's ~/.local Python
+# packages (the NumPy 1.x that matches the apt PyTorch) are the ones loaded.
+User=@USER@
+WorkingDirectory=@IDS_DIR@
+Environment=PYTHONUNBUFFERED=1
+# The SDN API runs on this same Pi; loopback does not depend on the bridge IP.
+Environment=SDN_REST_ENDPOINT=http://127.0.0.1:5000/alert
+# SDN_DEVICE_MACS and any other overrides live here (see install_service.sh).
+EnvironmentFile=-/etc/secure-medinet-ids.env
+ExecStart=@PYTHON@ inference.py --live
+Restart=on-failure
+RestartSec=10
+# Never compete with the gateway for CPU.
+Nice=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

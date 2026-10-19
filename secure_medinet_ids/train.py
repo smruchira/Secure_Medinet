@@ -34,6 +34,7 @@ from fusion.align import aggregate_to_windows
 from fusion.decision_engine import DecisionEngine
 from fusion.threat_classifier import ThreatTypeClassifier
 from utils.metrics import per_class_report, print_confusion_matrix
+from utils import event_log
 
 
 def chronological_split(X, y, test_frac=0.2):
@@ -129,20 +130,29 @@ def main():
     fused_conf, confirmed = engine.fuse(if_win_test, ae_win_test, lstm_win_test)
 
     print("\nBinary (attack vs normal) window-level report:")
-    per_class_report(y_test_binary, confirmed.astype(int), ["normal_window", "attack_window"])
-    print_confusion_matrix(y_test_binary, confirmed.astype(int), ["normal_window", "attack_window"])
+    binary_report = per_class_report(
+        y_test_binary, confirmed.astype(int), ["normal_window", "attack_window"]
+    )
+    confusion = print_confusion_matrix(
+        y_test_binary, confirmed.astype(int), ["normal_window", "attack_window"]
+    )
 
     # per-attack-type recall -- the number that matters most for this
     # project's rare-attack-detection claim
     print("\nPer-attack-type recall (of windows truly containing that attack, "
           "how many did the fused decision confirm):")
     true_multiclass_labels = fx.inverse_label(yw_test)
+    per_attack_recall = {}
     for attack in config.ATTACK_CLASSES:
         mask = true_multiclass_labels == attack
         if mask.sum() == 0:
             print(f"  {attack:10s}: no test windows for this class")
             continue
         recall = confirmed[mask].mean()
+        per_attack_recall[attack] = {
+            "recall": round(float(recall), 4),
+            "windows": int(mask.sum()),
+        }
         print(f"  {attack:10s}: recall={recall:.2f}  (n={int(mask.sum())} windows)")
 
     if threat_clf is not None:
@@ -160,6 +170,30 @@ def main():
                 print(f"  window {i}: predicted={pred_type:20s} true={true_type}")
             print(f"  -> {correct}/{len(confirmed_idx)} correct "
                   f"({100*correct/len(confirmed_idx):.0f}%)")
+
+    # 6b. Persist the evaluation so the dashboard can show the model card --
+    event_log.write_model_report({
+        "rows": int(len(df)),
+        "classes": class_names,
+        "train_windows": int(len(yw_train)),
+        "test_windows": int(len(yw_test)),
+        "test_attack_fraction": round(float(y_test_binary.mean()), 4),
+        "fusion_mode": engine.mode,
+        "binary_report": binary_report,
+        "confusion_matrix": confusion.tolist(),
+        "confusion_labels": ["normal_window", "attack_window"],
+        "per_attack_recall": per_attack_recall,
+        "threat_classifier_classes": (
+            None if threat_clf is None else list(threat_clf.classes_)
+        ),
+        "thresholds": {
+            "iforest_gate": config.IFOREST_GATE_THRESHOLD,
+            "fusion_confirm": config.FUSION_CONFIRM_THRESHOLD,
+            "window_size": config.WINDOW_SIZE,
+            "window_stride": config.WINDOW_STRIDE,
+            "gated_pipeline": config.GATED_PIPELINE,
+        },
+    })
 
     # 7. Persist everything ------------------------------------------------
     print("\n--- Saving models ---")

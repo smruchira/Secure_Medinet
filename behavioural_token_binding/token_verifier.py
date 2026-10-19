@@ -2,10 +2,11 @@
 
 import hashlib
 import hmac
+import os
 import time
 from pathlib import Path
 
-SECRET_FILE = Path("/home/chega/token_secret.txt")
+SECRET_FILE = Path(os.environ.get("TOKEN_SECRET_FILE", "/home/chega/token_secret.txt"))
 TOKEN_MAX_AGE = 30
 
 _used_sequences = {}

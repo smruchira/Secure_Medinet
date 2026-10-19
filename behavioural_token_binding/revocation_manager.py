@@ -1,7 +1,8 @@
 import json
+import os
 from pathlib import Path
 
-REVOCATION_FILE = Path("/home/chega/revoked_devices.json")
+REVOCATION_FILE = Path(os.environ.get("TOKEN_REVOKED", "/home/chega/revoked_devices.json"))
 
 
 def load_revoked_devices():

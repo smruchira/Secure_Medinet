@@ -22,3 +22,10 @@ venv/
 **/cloud_log.jsonl
 **/detection_results.jsonl
 **/watchdog_alerts.jsonl
+**/ids_events.jsonl
+**/ids_runs.jsonl
+**/ids_model_report.json
+**/token_decisions.jsonl
+**/behavior_profile.json
+**/revoked_devices.json
+secure_medinet_ids/logs/

@@ -6,19 +6,26 @@ SDN Gateway detail view: all devices, filtering, and manual enforcement.
 
 import streamlit as st
 
+import charts
 import settings
 import ui
 from sources import sdn
 
-ui.setup_page("SDN Gateway")
+ui.setup_page(
+    "SDN Gateway",
+    "Faucet-enforced policy per device MAC on the IoT hotspot.",
+)
 
 
 @st.fragment(run_every=settings.REFRESH_SEC)
 def devices_view():
     devices, live = sdn.get_devices()
+    counts = sdn.status_counts(devices)
     ui.connection_banner("SDN Gateway", live)
-    ui.sdn_metrics(sdn.status_counts(devices))
+    ui.sdn_tiles(counts)
+    ui.chart(charts.device_status_bar(counts))
 
+    ui.panel("Devices")
     left, right = st.columns([1, 2])
     statuses = left.multiselect(
         "Status", sdn.STATUSES, default=sdn.STATUSES, format_func=lambda s: ui.STATUS_LABELS[s]

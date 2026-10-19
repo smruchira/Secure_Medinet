@@ -9,6 +9,9 @@ User=dashboard
 WorkingDirectory=/opt/secure-medinet-dashboard
 Environment=SDN_API_URL=http://127.0.0.1:5000
 Environment=SDN_REGISTRY_PATH=/opt/sdn/config/device_registry.json
+# Where the Edge IDS writes its logs on this Pi (~/NIDS/logs). The dashboard
+# user must be able to enter /home/chega: chmod o+x /home/chega
+Environment=IDS_LOG_DIR=/home/chega/NIDS/logs
 # Holds DASHBOARD_PASSWORD (written by scripts/install_pi.sh, mode 600).
 EnvironmentFile=/etc/secure-medinet-dashboard.env
 ExecStart=/opt/secure-medinet-dashboard/venv/bin/streamlit run Home.py

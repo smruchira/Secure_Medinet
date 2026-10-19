@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import time
 from pathlib import Path
 from statistics import mean, pstdev
 
-PROFILE_FILE = Path("/home/chega/behavior_profile.json")
+PROFILE_FILE = Path(os.environ.get("TOKEN_PROFILES", "/home/chega/behavior_profile.json"))
 
 MIN_SAMPLES = 5
 MIN_INTERVAL = 0.5
