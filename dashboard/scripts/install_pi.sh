@@ -22,7 +22,9 @@ id dashboard &>/dev/null || useradd --system --no-create-home --shell /usr/sbin/
 mkdir -p "$APP_DIR"
 cp -r "$SRC_DIR"/{Home.py,settings.py,ui.py,sources,pages,.streamlit,requirements.txt} "$APP_DIR"/
 python3 -m venv "$APP_DIR/venv"
-"$APP_DIR/venv/bin/pip" install --quiet -r "$APP_DIR/requirements.txt"
+# The wheels are large (pyarrow, pandas); tolerate a slow or flaky uplink.
+"$APP_DIR/venv/bin/pip" install --timeout 120 --retries 10 --prefer-binary \
+    -r "$APP_DIR/requirements.txt"
 chown -R root:root "$APP_DIR"
 
 umask 077
